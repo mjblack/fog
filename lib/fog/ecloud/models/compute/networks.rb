@@ -10,14 +10,14 @@ module Fog
         model Fog::Compute::Ecloud::Network
 
         def all
-          data = connection.get_networks(href).body
+          data = service.get_networks(href).body
           data = data[:Networks] ? data[:Networks][:Network] : data[:Network]
           data = data.nil? ? [] : data
           load(data)
         end
 
         def get(uri)
-          if data = connection.get_network(uri)
+          if data = service.get_network(uri)
             new(data.body)
           end
         rescue Fog::Errors::NotFound

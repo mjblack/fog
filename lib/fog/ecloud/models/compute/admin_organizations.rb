@@ -10,12 +10,12 @@ module Fog
         model Fog::Compute::Ecloud::AdminOrganization
 
         def all
-          data = connection.get_admin_organizations(href).body
+          data = service.get_admin_organizations(href).body
           load(data)
         end
 
         def get(uri)
-          if data = connection.get_admin_organization(uri)
+          if data = service.get_admin_organization(uri)
             new(data.body)
           end
         rescue Fog::Errors::NotFound

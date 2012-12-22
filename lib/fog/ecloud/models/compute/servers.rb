@@ -4,13 +4,13 @@ module Fog
   module Compute
     class Ecloud
       class Servers < Fog::Ecloud::Collection
-        
+
         model Fog::Compute::Ecloud::Server
 
         identity :href
 
         def all
-          data = connection.get_servers(href).body
+          data = service.get_servers(href).body
           if data.keys.include?(:VirtualMachines)
             data = data[:VirtualMachines][:VirtualMachine]
           elsif data[:VirtualMachine]
@@ -22,7 +22,7 @@ module Fog
         end
 
         def get(uri)
-          if data = connection.get_server(uri)
+          if data = service.get_server(uri)
             new(data.body)
           end
         rescue Fog::Errors::NotFound
@@ -48,15 +48,15 @@ module Fog
               options[:network_uri] = options[:network_uri].is_a?(String) ? [options[:network_uri]] : options[:network_uri]
               options[:network_uri].each do |uri|
                 index = options[:network_uri].index(uri)
-                ip = Fog::Compute::Ecloud::IpAddresses.new(:connection => connection, :href => uri).detect { |i| i.host == nil }.name
+                ip = Fog::Compute::Ecloud::IpAddresses.new(:service => service, :href => uri).detect { |i| i.host == nil }.name
                 options[:ips] ||= []
                 options[:ips][index] = ip
               end
             end
-            data = connection.virtual_machine_create_from_template( template_uri, options ).body
+            data = service.virtual_machine_create_from_template( template_uri, options ).body
           else
             options[:uri] = href + "/action/importVirtualMachine"
-            data = connection.virtual_machine_import( template_uri, options ).body
+            data = service.virtual_machine_import( template_uri, options ).body
           end
           object = new(data)
           object

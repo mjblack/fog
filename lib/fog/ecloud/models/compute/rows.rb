@@ -10,12 +10,12 @@ module Fog
         model Fog::Compute::Ecloud::Row
 
         def all
-          data = connection.get_layout(href).body[:Rows][:Row]
+          data = service.get_layout(href).body[:Rows][:Row]
           load(data)
         end
 
         def get(uri)
-          if data = connection.get_row(uri)
+          if data = service.get_row(uri)
             new(data.body)
           end
         rescue Fog::Errors::NotFound
@@ -24,10 +24,10 @@ module Fog
 
         def create(options = {})
           options[:uri] = "/cloudapi/ecloud/layoutRows/environments/#{environment_id}/action/createLayoutRow"
-          data = connection.rows_create(options).body
+          data = service.rows_create(options).body
           new(data)
         end
- 
+
         def environment_id
           href.scan(/\d+/)[0]
         end

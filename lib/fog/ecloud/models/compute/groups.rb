@@ -10,13 +10,13 @@ module Fog
         model Fog::Compute::Ecloud::Group
 
         def all
-          data = connection.get_groups(href).body
+          data = service.get_groups(href).body
           data = data[:Groups] ? data[:Groups][:Group] : data
           load(data)
         end
 
         def get(uri)
-          if data = connection.get_group(uri)
+          if data = service.get_group(uri)
             new(data.body)
           end
         rescue Fog::Errors::NotFound

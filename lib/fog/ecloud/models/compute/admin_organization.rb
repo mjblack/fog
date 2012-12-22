@@ -11,19 +11,19 @@ module Fog
         attribute :support_access, :aliases => :SupportAccess
 
         def ssh_keys
-          @ssh_keys = Fog::Compute::Ecloud::SshKeys.new(:connection => connection, :href => "/cloudapi/ecloud/admin/sshKeys/organizations/#{org_id}")
+          @ssh_keys = Fog::Compute::Ecloud::SshKeys.new(:service => service, :href => "/cloudapi/ecloud/admin/sshKeys/organizations/#{org_id}")
         end
 
         def password_complexity_rules
-          @password_complexity_rules = Fog::Compute::Ecloud::PasswordComplexityRules.new(:connection => connection, :href => "/cloudapi/ecloud/admin/organizations/#{org_id}/passwordComplexityRules")
+          @password_complexity_rules = Fog::Compute::Ecloud::PasswordComplexityRules.new(:service => service, :href => "/cloudapi/ecloud/admin/organizations/#{org_id}/passwordComplexityRules")
         end
 
         def login_banner
-          @login_banner = Fog::Compute::Ecloud::LoginBanner.new(:connection => connection, :href => "/cloudapi/ecloud/admin/organizations/#{org_id}/loginBanner")
+          @login_banner = Fog::Compute::Ecloud::LoginBanner.new(:service => service, :href => "/cloudapi/ecloud/admin/organizations/#{org_id}/loginBanner")
         end
 
         def authentication_levels
-          @authentication_levels = Fog::Compute::Ecloud::AuthenticationLevels.new(:connection => connection, :href => "/cloudapi/ecloud/admin/organizations/#{org_id}/authenticationLevels")
+          @authentication_levels = Fog::Compute::Ecloud::AuthenticationLevels.new(:service => service, :href => "/cloudapi/ecloud/admin/organizations/#{org_id}/authenticationLevels")
         end
 
         def id
