@@ -154,7 +154,7 @@ module Fog
           if ( options.has_key?('customization_spec') )
             cust_options = options['customization_spec']
             if cust_options.has_key?("ipsettings")
-              raise ArgumentError, "ip and subnetMask is required for static ip" unless cust_options["ipsettings"].has_key?("ip") or
+              raise ArgumentError, "ip and subnetMask is required for static ip" unless cust_options["ipsettings"].has_key?("ip") and
                                                                                         cust_options["ipsettings"].has_key?("subnetMask")
             end
             raise ArgumentError, "domain is required" unless cust_options.has_key?("domain")
