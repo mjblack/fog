@@ -26,7 +26,7 @@ module Fog
         end
         def get_vm_by_name(name, dc)
           vms = raw_list_all_virtual_machines(dc)
-          vms.delete_if { |v| v.config.template }.keep_if { |v| v["name"] == name }.first
+          vms.keep_if { |v| v["name"] == name }.first
         end
       end
 
